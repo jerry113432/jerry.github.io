@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6B8A7A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            background-color: #254336;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .main-container {
+            background-color: #B7B597;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+        }
+
+        .main-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            background-color: #254336;
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            background-color: #ddd;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
+
+        .section-title {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .main-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .main-container li {
+            margin: 5px 0;
+        }
+
+        .main-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .main-container button:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script>
+        function displayMemberDetails() {
+            const username = localStorage.getItem('username');
+            const email = localStorage.getItem('email');
+            const fullname = localStorage.getItem('fullname');
+            const dob = localStorage.getItem('dob');
+            const gender = localStorage.getItem('gender');
+            const address = localStorage.getItem('address');
+            const phone = localStorage.getItem('phone');
+
+            if (username && email && fullname && dob && gender && address && phone) {
+                document.getElementById('username').innerText = username;
+                document.getElementById('email').innerText = email;
+                document.getElementById('fullname').innerText = fullname;
+                document.getElementById('dob').innerText = dob;
+                document.getElementById('gender').innerText = gender;
+                document.getElementById('address').innerText = address;
+                document.getElementById('phone').innerText = phone;
+                document.getElementById('member-details').style.display = 'block';
+            } else {
+                window.location.href = 'Login_html/login.html';
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'Login_html/login.html';
+        }
+
+        window.onload = displayMemberDetails;
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="../index.html">回首頁</a>
+    </div>
+    <div class="main-container">
+        <h2>會員資料</h2>
+        <div id="member-details" style="display: none;">
+            <div class="profile">
+                <img src="../img/user.png" alt="Profile Picture">
+                <div class="profile-info">
+                    <p><strong>帳號:</strong> <span id="username"></span></p>
+                    <p><strong>Email:</strong> <span id="email"></span></p>
+                    <p><strong>姓名:</strong> <span id="fullname"></span></p>
+                    <p><strong>生日:</strong> <span id="dob"></span></p>
+                    <p><strong>性別:</strong> <span id="gender"></span></p>
+                    <p><strong>地址:</strong> <span id="address"></span></p>
+                    <p><strong>電話:</strong> <span id="phone"></span></p>
+                </div>
+            </div>
+            <div>
+                <div class="section-title">歷史消費紀錄</div>
+                <ul id="purchase-history">
+                    <li>2023-01-01: 球拍 - $500</li>
+                    <li>2023-02-01: 網球鞋 - $500</li>
+                </ul>
+
+                <div class="section-title">評論與評分紀錄</div>
+                <ul id="reviews-ratings">
+                    <li>球拍 - 評分: 5/5 - 評論: 很棒的產品！</li>
+                    <li>網球鞋 - 評分: 4/5 - 評論: 很耐穿。</li>
+                </ul>
+            </div>
+            <button onclick="logout()">登出</button>
+        </div>
+    </div>
+</body>
+</html>

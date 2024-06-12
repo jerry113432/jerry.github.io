@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue購物車</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="s.css">
+</head>
+<body>
+    <div id="app">
+        <div>
+            <button @click="selectBrand('HEAD')">HEAD</button>
+            <button @click="selectBrand('BABOLAT')">BABOLAT</button>
+            <button @click="selectBrand('WILSON')">WILSON</button>
+            <button onclick="location.href='../index.html'">回首頁</button>
+        </div>
+        <div class="container" v-if="categorizedItems[selectedBrand]">
+            <h2>{{ selectedBrand }}</h2>
+            <div v-for="(items, category) in categorizedItems[selectedBrand]" :key="category">
+                <h3>{{ category }}</h3>
+                <div class="item_header">
+                    <div class="item_detail">商品</div>
+                    <div class="price">單價</div>
+                    <div class="count">數量</div> 
+                    <div class="amount">總計</div>
+                </div>
+                <div class="item_container" v-for="(item, index) in items" :key="item.id">
+                    <div class="item_header item_body">
+                        <div class="item_detail">
+                            <img v-bind:src="item.imgUrl" alt="">
+                            <div class="name">{{item.itemName}}</div>
+                        </div>
+                        <div class="price"><span>$</span>{{item.price}}</div>
+                        <div class="count">
+                            <button @click="handleSub(item)">-</button>
+                            {{item.count}}
+                            <button @click="handlePlus(item)">+</button>
+                        </div> 
+                        <div class="amount">{{item.price * item.count}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="summary">
+            <p>Total Price: {{ totalPrice }}</p>
+            <button @click="submitOrder">送出訂單</button>
+        </div>
+    </div>
+    <script src="s.js"></script>
+</body>
+</html>
